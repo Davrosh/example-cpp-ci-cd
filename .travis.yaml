@@ -1,0 +1,28 @@
+os:
+  - linux
+  - osx
+
+language: cpp
+
+dist: trusty
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-7
+      - g++-7
+
+
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      brew update ;
+    fi
+
+script:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      export CC=gcc-7 ;
+      export CXX=g++-7 ;
+    fi
+  - make && ./a.out
